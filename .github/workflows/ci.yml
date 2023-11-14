@@ -231,7 +231,7 @@ jobs:
         with:
           command: build
           # Build without wayland feature so libwayland isn't needed for cross test
-          args: --target ${{ matrix.target }} --no-default-featurebs
+          args: --target ${{ matrix.target }} --no-default-features
       - name: Test
         if: contains(matrix.target, '-linux-') && (startsWith(matrix.target, 'x86_64-') || startsWith(matrix.target, 'i686-'))
         uses: actions-rs/cargo@v1
