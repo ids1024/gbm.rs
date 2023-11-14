@@ -170,19 +170,23 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y libwayland-dev pkg-config
+      - name: Install i386 dependencies
+        if: contains(matrix.target, '-linux-') && startsWith(matrix.target, 'i386-')
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -y
+          sudo apt-get install -y libgbm-dev:i386 libwayland-dev:i386
+          echo "PKG_CONFIG_ALLOW_CROSS=1" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=/usr/lib/i386-linux-gnu/pkgconfig" >> $GITHUB_ENV 
       - name: Setup linux cross toolchain
         if: contains(matrix.target, '-linux-') && !startsWith(matrix.target, 'x86_64-')
         run: |
           GCC_TARGET=$(printf "${{ matrix.target }}" | sed 's/-unknown-/-/;s/arm[^-]*/arm/;s/riscv[^-]*/riscv64/')
           ENV_TARGET=$(printf "${{ matrix.target }}" | tr '-' '_'  | tr '[[:lower:]]' '[[:upper:]]')
-          sudo dpkg --add-architecture i386
           sudo apt-get update -y
           sudo apt-get install -y gcc-${GCC_TARGET}
           echo "CARGO_TARGET_${ENV_TARGET}_LINKER=${GCC_TARGET}-gcc" >> $GITHUB_ENV
           echo "BINDGEN_EXTRA_CLANG_ARGS=--sysroot=/usr/${GCC_TARGET}" >> $GITHUB_ENV
-          echo "PKG_CONFIG_ALLOW_CROSS=1" >> $GITHUB_ENV
-          sudo apt-get install -y libgbm1:i386 libwayland-dev:i386
-          echo "PKG_CONFIG_PATH=/usr/lib/i386-linux-gnu/pkgconfig" >> $GITHUB_ENV 
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
