@@ -185,6 +185,7 @@ jobs:
           echo "BINDGEN_EXTRA_CLANG_ARGS=--sysroot=/usr/${GCC_TARGET}" >> $GITHUB_ENV
           echo "PKG_CONFIG_ALLOW_CROSS=1" >> $GITHUB_ENV
           sudo apt-get install -y libwayland-dev:i386
+          sudo dpkg --add-architecture i386
           echo "PKG_CONFIG_SYSROOT=/usr/lib/i386-linux/gnu" >> $GITHUB_ENV
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
