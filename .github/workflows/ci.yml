@@ -228,7 +228,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --target ${{ matrix.target }}
+          args: --target ${{ matrix.target }} --no-default-features # XXX
       - name: Test
         if: contains(matrix.target, '-linux-') && (startsWith(matrix.target, 'x86_64-') || startsWith(matrix.target, 'i686-'))
         uses: actions-rs/cargo@v1
