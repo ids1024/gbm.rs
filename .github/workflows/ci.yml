@@ -287,7 +287,7 @@ jobs:
           name: bindings
       - name: Copy x86_64 bindings
         run: |
-          cp bindings-x86_64-unknown-linux-gnu.rs drm-ffi/drm-sys/src/bindings.rs
+          cp bindings-x86_64-unknown-linux-gnu.rs gbm-sys/src/bindings.rs
           rm bindings-*.rs
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3
