@@ -1,34 +1,13 @@
 #[cfg(feature = "gen")]
 extern crate bindgen;
 
-use std::{env, path::Path};
-
 #[cfg(not(feature = "gen"))]
-fn main() {
-    let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
-    let target_arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap();
-
-    let bindings_file = Path::new("src")
-        .join("platforms")
-        .join(&target_os)
-        .join(&target_arch)
-        .join("gen.rs");
-
-    if bindings_file.is_file() {
-        println!(
-            "cargo:rustc-env=GBM_SYS_BINDINGS_PATH={}/{}",
-            target_os, target_arch
-        );
-    } else {
-        panic!(
-            "No prebuilt bindings for target OS `{}` and/or architecture `{}`. Try `gen` feature.",
-            target_os, target_arch
-        );
-    }
-}
+fn main() {}
 
 #[cfg(feature = "gen")]
 fn main() {
+    use std::{env, path::Path};
+
     const TMP_BIND_PREFIX: &str = "__BINDGEN_TMP_";
     const TMP_BIND_PREFIX_REG: &str = "_BINDGEN_TMP_.*";
 
@@ -112,31 +91,17 @@ fn main() {
 
     // Generate the bindings
     let out_dir = env::var("OUT_DIR").unwrap();
-    let dest_path = Path::new(&out_dir).join("gen.rs");
+    let dest_path = Path::new(&out_dir).join("bindings.rs");
 
     generated.write_to_file(dest_path).unwrap();
 
     #[cfg(feature = "update_bindings")]
     {
-        use std::{fs, io::Write};
+        use std::fs;
 
-        let bind_file = Path::new(&out_dir).join("gen.rs");
-        let dest_dir = Path::new("src")
-            .join("platforms")
-            .join(env::var("CARGO_CFG_TARGET_OS").unwrap())
-            .join(env::var("CARGO_CFG_TARGET_ARCH").unwrap());
-        let dest_file = dest_dir.join("gen.rs");
+        let bind_file = Path::new(&out_dir).join("bindings.rs");
+        let dest_file = "src/bindings.rs";
 
-        fs::create_dir_all(&dest_dir).unwrap();
-        fs::copy(&bind_file, &dest_file).unwrap();
-
-        if let Ok(github_env) = env::var("GITHUB_ENV") {
-            let mut env_file = fs::OpenOptions::new()
-                .create(true)
-                .append(true)
-                .open(github_env)
-                .unwrap();
-            writeln!(env_file, "GBM_SYS_BINDINGS_FILE={}", dest_file.display()).unwrap();
-        }
+        fs::copy(bind_file, dest_file).unwrap();
     }
 }
