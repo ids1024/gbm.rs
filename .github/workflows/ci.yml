@@ -180,12 +180,9 @@ jobs:
           GCC_TARGET=$(printf "${{ matrix.target }}" | sed 's/-unknown-/-/;s/arm[^-]*/arm/;s/riscv[^-]*/riscv64/')
           ENV_TARGET=$(printf "${{ matrix.target }}" | tr '-' '_'  | tr '[[:lower:]]' '[[:upper:]]')
           sudo apt-get update -y
-          sudo apt-get install -y gcc-${GCC_TARGET} pkg-config
+          sudo apt-get install -y gcc-${GCC_TARGET}
           echo "CARGO_TARGET_${ENV_TARGET}_LINKER=${GCC_TARGET}-gcc" >> $GITHUB_ENV
           echo "BINDGEN_EXTRA_CLANG_ARGS=--sysroot=/usr/${GCC_TARGET}" >> $GITHUB_ENV
-          echo "PKG_CONFIG_ALLOW_CROSS=1" >> $GITHUB_ENV
-          echo "PKG_CONFIG_${ENV_TARGET}=${GCC_TARGET}-pkg-config" >> $GITHUB_ENV
-          echo "PKG_CONFIG=${GCC_TARGET}-pkg-config" >> $GITHUB_ENV
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -233,7 +230,8 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --target ${{ matrix.target }} --no-default-features # XXX
+          # Build without wayland feature so libwayland isn't needed for cross test
+          args: --target ${{ matrix.target }} --no-default-featurebs
       - name: Test
         if: contains(matrix.target, '-linux-') && (startsWith(matrix.target, 'x86_64-') || startsWith(matrix.target, 'i686-'))
         uses: actions-rs/cargo@v1
