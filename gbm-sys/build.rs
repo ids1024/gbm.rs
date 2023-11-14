@@ -80,10 +80,12 @@ fn main() {
         .header_contents("bindings.h", &create_header())
         .blocklist_type(TMP_BIND_PREFIX_REG)
         .ctypes_prefix("libc")
-        .allowlist_type(r"^gbm_.*$")
-        .allowlist_function(r"^gbm_.*$")
+        .allowlist_type("^gbm_.*$")
+        .allowlist_function("^gbm_.*$")
         .allowlist_var("GBM_.*|gbm_.*")
-        .constified_enum_module(r"^gbm_.*$")
+        .constified_enum_module("^gbm_.*$")
+        // Layout tests are incorrect across architectures
+        .layout_tests(false)
         .generate()
         .unwrap();
 

@@ -32,71 +32,6 @@ pub union gbm_bo_handle {
     pub s64: i64,
     pub u64_: u64,
 }
-#[test]
-fn bindgen_test_layout_gbm_bo_handle() {
-    const UNINIT: ::std::mem::MaybeUninit<gbm_bo_handle> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<gbm_bo_handle>(),
-        8usize,
-        concat!("Size of: ", stringify!(gbm_bo_handle))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<gbm_bo_handle>(),
-        8usize,
-        concat!("Alignment of ", stringify!(gbm_bo_handle))
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ptr) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_bo_handle),
-            "::",
-            stringify!(ptr)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s32) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_bo_handle),
-            "::",
-            stringify!(s32)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).u32_) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_bo_handle),
-            "::",
-            stringify!(u32_)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s64) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_bo_handle),
-            "::",
-            stringify!(s64)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).u64_) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_bo_handle),
-            "::",
-            stringify!(u64_)
-        )
-    );
-}
 pub mod gbm_bo_format {
     #[doc = " Format of the allocated buffer"]
     pub type Type = libc::c_uint;
@@ -109,31 +44,6 @@ pub mod gbm_bo_format {
 #[derive(Debug, Copy, Clone)]
 pub struct gbm_format_name_desc {
     pub name: [libc::c_char; 5usize],
-}
-#[test]
-fn bindgen_test_layout_gbm_format_name_desc() {
-    const UNINIT: ::std::mem::MaybeUninit<gbm_format_name_desc> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<gbm_format_name_desc>(),
-        5usize,
-        concat!("Size of: ", stringify!(gbm_format_name_desc))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<gbm_format_name_desc>(),
-        1usize,
-        concat!("Alignment of ", stringify!(gbm_format_name_desc))
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_format_name_desc),
-            "::",
-            stringify!(name)
-        )
-    );
 }
 pub mod gbm_bo_flags {
     #[doc = " Flags to indicate the intended use for the buffer - these are passed into\n gbm_bo_create(). The caller must set the union of all the flags that are\n appropriate\n\n \\sa Use gbm_device_is_format_supported() to check if the combination of format\n and use flags are supported"]
@@ -218,71 +128,6 @@ pub struct gbm_import_fd_data {
     pub stride: u32,
     pub format: u32,
 }
-#[test]
-fn bindgen_test_layout_gbm_import_fd_data() {
-    const UNINIT: ::std::mem::MaybeUninit<gbm_import_fd_data> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<gbm_import_fd_data>(),
-        20usize,
-        concat!("Size of: ", stringify!(gbm_import_fd_data))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<gbm_import_fd_data>(),
-        4usize,
-        concat!("Alignment of ", stringify!(gbm_import_fd_data))
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fd) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_data),
-            "::",
-            stringify!(fd)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_data),
-            "::",
-            stringify!(width)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_data),
-            "::",
-            stringify!(height)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_data),
-            "::",
-            stringify!(stride)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_data),
-            "::",
-            stringify!(format)
-        )
-    );
-}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct gbm_import_fd_modifier_data {
@@ -294,102 +139,6 @@ pub struct gbm_import_fd_modifier_data {
     pub strides: [libc::c_int; 4usize],
     pub offsets: [libc::c_int; 4usize],
     pub modifier: u64,
-}
-#[test]
-fn bindgen_test_layout_gbm_import_fd_modifier_data() {
-    const UNINIT: ::std::mem::MaybeUninit<gbm_import_fd_modifier_data> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<gbm_import_fd_modifier_data>(),
-        72usize,
-        concat!("Size of: ", stringify!(gbm_import_fd_modifier_data))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<gbm_import_fd_modifier_data>(),
-        8usize,
-        concat!("Alignment of ", stringify!(gbm_import_fd_modifier_data))
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_modifier_data),
-            "::",
-            stringify!(width)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_modifier_data),
-            "::",
-            stringify!(height)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_modifier_data),
-            "::",
-            stringify!(format)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).num_fds) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_modifier_data),
-            "::",
-            stringify!(num_fds)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fds) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_modifier_data),
-            "::",
-            stringify!(fds)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).strides) as usize - ptr as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_modifier_data),
-            "::",
-            stringify!(strides)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).offsets) as usize - ptr as usize },
-        48usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_modifier_data),
-            "::",
-            stringify!(offsets)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).modifier) as usize - ptr as usize },
-        64usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(gbm_import_fd_modifier_data),
-            "::",
-            stringify!(modifier)
-        )
-    );
 }
 extern "C" {
     pub fn gbm_bo_import(
